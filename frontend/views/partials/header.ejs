@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domaine Prestige – VIP Winery Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo">
+            <span class="logo-crest">✦</span>
+            <div class="logo-text">
+                <span class="logo-name">Domaine Prestige</span>
+                <span class="logo-tagline">VIP Members Club</span>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="<%= activePage === 'members' ? 'active' : '' %>">Members</a>
+            <a href="/events" class="<%= activePage === 'events' ? 'active' : '' %>">Events</a>
+            <a href="/registrations" class="<%= activePage === 'registrations' ? 'active' : '' %>">Registrations</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">

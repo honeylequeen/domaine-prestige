@@ -1,0 +1,414 @@
+/* Domaine Prestige - VIP Members Club styles */
+/* Dark luxury winery aesthetic */
+
+:root {
+    --bg:         #0d0608;
+    --bg-card:    #140b0d;
+    --bg-hover:   #1c1013;
+    --border:     #2e1a1e;
+    --border-light: #3d2227;
+    --burgundy:   #6b1a2a;
+    --burgundy-l: #8b2438;
+    --gold:       #c9a84c;
+    --gold-l:     #e4c26a;
+    --gold-dim:   #7a6130;
+    --cream:      #f5ede0;
+    --text:       #e8ddd5;
+    --text-muted: #8a7570;
+    --danger:     #9b2335;
+    --cellar:     #5a7a5a;
+    --reserve:    #4a6a8a;
+    --grand-cru:  #7a5a1a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 15px; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(107,26,42,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(107,26,42,0.1) 0%, transparent 60%);
+}
+
+/* ── HEADER ─────────────────────────────────── */
+.site-header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.logo { display: flex; align-items: center; gap: 0.75rem; }
+
+.logo-crest {
+    font-size: 1.5rem;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.logo-text { display: flex; flex-direction: column; }
+
+.logo-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+}
+
+.logo-tagline {
+    font-size: 0.62rem;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+}
+
+.main-nav { display: flex; gap: 0.25rem; }
+
+.main-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.1rem;
+    border-radius: 2px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.main-nav a:hover { color: var(--cream); background: var(--bg-hover); }
+.main-nav a.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+
+/* ── MAIN CONTENT ────────────────────────────── */
+.main-content {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    flex: 1;
+}
+
+/* ── TABLES ──────────────────────────────────── */
+.table-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.data-table thead {
+    background: var(--bg-hover);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.data-table th {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.data-table td {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+
+.data-table tbody tr:hover { background: var(--bg-hover); }
+
+.details-cell {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.reg-num { color: var(--gold-dim); font-variant-numeric: tabular-nums; }
+
+/* ── BADGES ──────────────────────────────────── */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 2px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.badge-cellar    { background: rgba(90,122,90,0.2);  color: #8fc48f; border: 1px solid rgba(90,122,90,0.4); }
+.badge-reserve   { background: rgba(74,106,138,0.2); color: #7ab0d4; border: 1px solid rgba(74,106,138,0.4); }
+.badge-grand-cru { background: rgba(122,90,26,0.2);  color: var(--gold); border: 1px solid rgba(122,90,26,0.5); }
+.badge-title     { background: rgba(107,26,42,0.2);  color: #d4879a; border: 1px solid rgba(107,26,42,0.4); }
+
+/* ── BUTTONS ─────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.3rem;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: var(--bg);
+}
+.btn-gold:hover { background: var(--gold-l); }
+
+.btn-outline {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-light);
+}
+.btn-outline:hover { color: var(--cream); border-color: var(--text-muted); }
+
+.btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid rgba(155,35,53,0.4);
+}
+.btn-danger:hover { background: rgba(155,35,53,0.15); }
+
+.btn-sm { padding: 0.3rem 0.75rem; font-size: 0.65rem; }
+
+/* ── MODALS ──────────────────────────────────── */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 2, 3, 0.85);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: fadeUp 0.2s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--cream);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s;
+}
+.modal-close:hover { color: var(--cream); }
+
+/* ── FORMS ───────────────────────────────────── */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group-full { grid-column: 1 / -1; }
+
+.form-group label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: var(--bg);
+    border: 1px solid var(--border-light);
+    border-radius: 2px;
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.85rem;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--gold-dim);
+}
+
+.form-group select option { background: var(--bg-card); }
+
+.form-group textarea { resize: vertical; }
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ── MISC ────────────────────────────────────── */
+.actions { display: flex; gap: 0.4rem; }
+
+.alert {
+    padding: 0.85rem 1.1rem;
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+}
+
+.alert-error {
+    background: rgba(155,35,53,0.15);
+    border: 1px solid rgba(155,35,53,0.4);
+    color: #e88;
+}
+
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+}
+
+.event-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ── TOAST ───────────────────────────────────── */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    padding: 0.85rem 1.3rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 300;
+    pointer-events: none;
+    max-width: 300px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success { border-left: 3px solid var(--gold); }
+.toast.error   { border-left: 3px solid var(--danger); }
+
+/* ── FOOTER ──────────────────────────────────── */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}

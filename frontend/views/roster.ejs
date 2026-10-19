@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+    <a href="/events" class="btn btn-outline">← Back to Events</a>
+    <h1 class="page-title"><%= event.name %> — Roster</h1>
+    <span class="badge badge-<%= event.level.toLowerCase().replace(' ', '-') %>"><%= event.level %></span>
+</div>
+
+<div class="event-meta">
+    <span>📅 <%= event.date %></span>
+    <span>📍 <%= event.location %></span>
+    <span>👥 <%= roster.length %> / <%= event.capacity %> registered</span>
+</div>
+
+<div class="table-wrap">
+    <% if (roster.length === 0) { %>
+        <div class="empty-state">No members registered for this event yet.</div>
+    <% } else { %>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Level</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% roster.forEach(r => { %>
+            <tr>
+                <td><strong><%= r.name %></strong></td>
+                <td><span class="badge badge-title"><%= r.title %></span></td>
+                <td><span class="badge badge-<%= r.level.toLowerCase().replace(' ', '-') %>"><%= r.level %></span></td>
+                <td><%= r.region %></td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

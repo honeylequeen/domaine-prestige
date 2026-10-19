@@ -1,0 +1,137 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+    <h1 class="page-title">Events</h1>
+    <button class="btn btn-gold" onclick="openModal('addEventModal')">+ Add Event</button>
+</div>
+
+<% if (typeof error !== 'undefined') { %>
+    <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<div class="table-wrap">
+    <table class="data-table" id="eventsTable">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Type / Level</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% events.forEach(e => { %>
+            <tr data-id="<%= e.id %>">
+                <td><strong><%= e.name %></strong></td>
+                <td><span class="badge badge-<%= e.level.toLowerCase().replace(' ', '-') %>"><%= e.level %></span></td>
+                <td><%= e.date %></td>
+                <td><%= e.location %></td>
+                <td><%= e.capacity %></td>
+                <td class="actions">
+                    <a href="/events/<%= e.id %>/roster" class="btn btn-sm btn-outline">Roster</a>
+                    <button class="btn btn-sm btn-outline"
+                        data-id="<%= e.id %>" data-name="<%= e.name %>" data-capacity="<%= e.capacity %>" data-level="<%= e.level %>"
+                        data-date="<%= e.date %>" data-location="<%= e.location %>"
+                        onclick="openEditEvent(this)">
+                        Edit
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteEvent(<%= e.id %>)">Delete</button>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Event Modal -->
+<div class="modal-overlay" id="addEventModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>New Event</h2>
+            <button class="modal-close" onclick="closeModal('addEventModal')">✕</button>
+        </div>
+        <form id="addEventForm" onsubmit="submitAddEvent(event)">
+            <div class="form-grid">
+                <div class="form-group form-group-full">
+                    <label>Event Name</label>
+                    <input type="text" name="name" required placeholder="e.g. Autumn Harvest Dinner">
+                </div>
+                <div class="form-group">
+                    <label>Level Required</label>
+                    <select name="level" required>
+                        <option value="">Select level...</option>
+                        <option value="Cellar">Cellar (Bronze)</option>
+                        <option value="Reserve">Reserve (Silver)</option>
+                        <option value="Grand Cru">Grand Cru (Gold)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Capacity</label>
+                    <input type="number" name="capacity" required min="1" placeholder="e.g. 40">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" name="location" required placeholder="e.g. Grand Cellar Hall">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addEventModal')">Cancel</button>
+                <button type="submit" class="btn btn-gold">Add Event</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Event Modal -->
+<div class="modal-overlay" id="editEventModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Edit Event</h2>
+            <button class="modal-close" onclick="closeModal('editEventModal')">✕</button>
+        </div>
+        <form id="editEventForm" onsubmit="submitEditEvent(event)">
+            <input type="hidden" id="editEventId">
+            <div class="form-grid">
+                <div class="form-group form-group-full">
+                    <label>Event Name</label>
+                    <input type="text" id="editEventName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Level Required</label>
+                    <select id="editEventLevel" name="level" required>
+                        <option value="Cellar">Cellar (Bronze)</option>
+                        <option value="Reserve">Reserve (Silver)</option>
+                        <option value="Grand Cru">Grand Cru (Gold)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Capacity</label>
+                    <input type="number" id="editEventCapacity" name="capacity" required min="1">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="editEventDate" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="editEventLocation" name="location" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editEventModal')">Cancel</button>
+                <button type="submit" class="btn btn-gold">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/events.js"></script>
+<%- include('partials/footer') %>

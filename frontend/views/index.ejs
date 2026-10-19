@@ -1,0 +1,156 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+    <h1 class="page-title">Members</h1>
+    <button class="btn btn-gold" onclick="openModal('addMemberModal')">+ Add Member</button>
+</div>
+
+<% if (typeof error !== 'undefined') { %>
+    <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<!-- Members Table -->
+<div class="table-wrap">
+    <table class="data-table" id="membersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Level</th>
+                <th>Region</th>
+                <th>Email</th>
+                <th>Details</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% members.forEach(m => { %>
+            <tr data-id="<%= m.id %>">
+                <td><%= m.name %></td>
+                <td><span class="badge badge-title"><%= m.title %></span></td>
+                <td><span class="badge badge-<%= m.level.toLowerCase().replace(' ', '-') %>"><%= m.level %></span></td>
+                <td><%= m.region %></td>
+                <td><%= m.email %></td>
+                <td class="details-cell"><%= m.details %></td>
+                <td class="actions">
+                    <button class="btn btn-sm btn-outline"
+                        data-id="<%= m.id %>" data-name="<%= m.name %>" data-title="<%= m.title %>" data-level="<%= m.level %>"
+                        data-region="<%= m.region %>" data-email="<%= m.email %>" data-details="<%= m.details %>"
+                        onclick="openEditMember(this)">
+                        Edit
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteMember(<%= m.id %>)">Delete</button>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Member Modal -->
+<div class="modal-overlay" id="addMemberModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>New Member</h2>
+            <button class="modal-close" onclick="closeModal('addMemberModal')">✕</button>
+        </div>
+        <form id="addMemberForm" onsubmit="submitAddMember(event)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" required placeholder="e.g. Isabelle Laurent">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <select name="title" required>
+                        <option value="">Select title...</option>
+                        <option>Sommelier</option>
+                        <option>Patron</option>
+                        <option>Connoisseur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Membership Level</label>
+                    <select name="level" required>
+                        <option value="">Select level...</option>
+                        <option value="Cellar">Cellar (Bronze)</option>
+                        <option value="Reserve">Reserve (Silver)</option>
+                        <option value="Grand Cru">Grand Cru (Gold)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Region</label>
+                    <input type="text" name="region" required placeholder="e.g. Bordeaux, France">
+                </div>
+                <div class="form-group form-group-full">
+                    <label>Email</label>
+                    <input type="email" name="email" required placeholder="member@email.com">
+                </div>
+                <div class="form-group form-group-full">
+                    <label>Details</label>
+                    <textarea name="details" rows="2" placeholder="Member notes or preferences..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addMemberModal')">Cancel</button>
+                <button type="submit" class="btn btn-gold">Add Member</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Member Modal -->
+<div class="modal-overlay" id="editMemberModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Edit Member</h2>
+            <button class="modal-close" onclick="closeModal('editMemberModal')">✕</button>
+        </div>
+        <form id="editMemberForm" onsubmit="submitEditMember(event)">
+            <input type="hidden" id="editMemberId">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="editMemberName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <select id="editMemberTitle" name="title" required>
+                        <option>Sommelier</option>
+                        <option>Patron</option>
+                        <option>Connoisseur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Membership Level</label>
+                    <select id="editMemberLevel" name="level" required>
+                        <option value="Cellar">Cellar (Bronze)</option>
+                        <option value="Reserve">Reserve (Silver)</option>
+                        <option value="Grand Cru">Grand Cru (Gold)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Region</label>
+                    <input type="text" id="editMemberRegion" name="region" required>
+                </div>
+                <div class="form-group form-group-full">
+                    <label>Email</label>
+                    <input type="email" id="editMemberEmail" name="email" required>
+                </div>
+                <div class="form-group form-group-full">
+                    <label>Details</label>
+                    <textarea id="editMemberDetails" name="details" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editMemberModal')">Cancel</button>
+                <button type="submit" class="btn btn-gold">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/members.js"></script>
+<%- include('partials/footer') %>

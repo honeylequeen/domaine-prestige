@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+    <h1 class="page-title">Registrations</h1>
+    <button class="btn btn-gold" onclick="openModal('addRegModal')">+ Register Member</button>
+</div>
+
+<% if (typeof error !== 'undefined') { %>
+    <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<div class="table-wrap">
+    <table class="data-table" id="regsTable">
+        <thead>
+            <tr>
+                <th>Reg #</th>
+                <th>Member</th>
+                <th>Event</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% registrations.forEach((r, i) => {
+            const member = members.find(m => m.id === r.member_id);
+            const event  = events.find(e => e.id === r.event_id);
+        %>
+            <tr data-id="<%= r.id %>">
+                <td class="reg-num">#<%= String(i + 1).padStart(3, '0') %></td>
+                <td><%= member ? member.name : 'Unknown' %></td>
+                <td><%= event ? event.name + ' — ' + event.date : 'Unknown' %></td>
+                <td class="actions">
+                    <button class="btn btn-sm btn-danger" onclick="deleteReg(<%= r.id %>)">Remove</button>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Registration Modal -->
+<div class="modal-overlay" id="addRegModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Register a Member</h2>
+            <button class="modal-close" onclick="closeModal('addRegModal')">✕</button>
+        </div>
+        <form id="addRegForm" onsubmit="submitAddReg(event)">
+            <div class="form-grid">
+                <div class="form-group form-group-full">
+                    <label>Select Member</label>
+                    <select name="member_id" required>
+                        <option value="">Choose member...</option>
+                        <% members.forEach(m => { %>
+                            <option value="<%= m.id %>"><%= m.name %> — <%= m.level %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group form-group-full">
+                    <label>Select Event</label>
+                    <select name="event_id" required>
+                        <option value="">Choose event...</option>
+                        <% events.forEach(e => { %>
+                            <option value="<%= e.id %>"><%= e.name %> — <%= e.date %> (<%= e.level %>)</option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addRegModal')">Cancel</button>
+                <button type="submit" class="btn btn-gold">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/registrations.js"></script>
+<%- include('partials/footer') %>
